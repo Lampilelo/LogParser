@@ -1,0 +1,21 @@
+{
+  "regex": {
+    "Achievement": "has earned the achievement",
+    "CommandOutput": "(^\\d+ - .*)|(^You give .* to .*\\.$)|(^>>)|(^Game Object \\(.*\\) removed$)|(^Appearing at .* location.$)|(^ {4}.*)|(^The command .* uses the following subcommands:$)|(Syntax: \\.)|(^[A-Z].* create(:|s) .*\\.)|(^No items found!$)",
+    "CustomChat": "",
+    "GeneralChat": "",
+    "GenericChat": "(\\[.\\. .*?\\])|(\\|Hchannel:.*h)",
+    "Guild": "Hchannel:GUILD",
+    "Instance": "Hchannel:INSTANCE",
+    "Loot": "(^Loot(ing)? .*\\.$)|(^You receive loot: .*\\.$)",
+    "NotDefined": "",
+    "Officer": "Hchannel:OFFICER",
+    "Party": "(Hchannel:PARTY)|(^(Party).*)|(^Dungeon Difficulty set to)|(has invited you to join a group.$)",
+    "Raid": "(Hchannel:RAID)|(^((\\[?)|(Legacy )?)Raid)|(joined ((the)|(a)) raid group)",
+    "Roll": ".* rolls \\d* \\(\\d*-\\d*\\)",
+    "Say": "says:",
+    "System": "(^You have learned)|(^You have gained)|(^You are)|(^Your pet has learned)|(has come online.$)|(.*leveled you up to \\(.*\\))|(^Your skill in.*has increased)|(^You have added.*to your collection\\.)|(has been added to your Toy Box\\.$)|(has been added to your pet journal!$)|(.*is dismissed.)|(^You receive item: .*\\.$)|(^You died.$)|(^You have requested to trade with)|(has gone offline\\.$)",
+    "Whisper": "^(To .*:)|(.*whispers:)",
+    "Yell": "yells:"
+  }
+}
