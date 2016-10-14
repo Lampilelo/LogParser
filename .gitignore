@@ -244,3 +244,5 @@ ModelManifest.xml
 
 # Custom
 WoWChatLog.txt
+/TODO.txt
+/src/LogParser/Properties/launchSettings.json
