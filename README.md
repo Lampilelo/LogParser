@@ -1,4 +1,4 @@
 # LogParser
 Parser for Elephant WoW AddOn's log files.
 
-##Doesn't work for now.
+##Non-release version. Almost not working!
