@@ -26,7 +26,6 @@ namespace LogParser
 
         static public Line ParseLine(string unparsedLine)
         {
-            var result = new Line();
             string[] _splittedLine;
             try
             {
@@ -34,8 +33,7 @@ namespace LogParser
                 //FIXME: I need to use GetMessage(string message, MessageType type) method!
                 return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
             }
-            catch (Exception e) { result.AdditionalInfo = e.Message; }
-            return result;
+            catch (Exception e) { throw e; }
         }
 
         static private MessageType GetType(string message)
