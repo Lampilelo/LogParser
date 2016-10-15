@@ -35,7 +35,7 @@ namespace LogSplit.Config
 
         public ConfigManager(string path)
         {
-            if ( ! File.Exists(path)) throw new Exception("Config File not found!");
+            if ( ! File.Exists(path)) throw new Exception("Config file not found!");
             ConfigPath = path;
         }
 

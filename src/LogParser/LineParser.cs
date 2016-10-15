@@ -1,8 +1,7 @@
-﻿using System;
+﻿using LogSplit.Config;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.IO;
 
 namespace LogParser
 {
@@ -16,7 +15,15 @@ namespace LogParser
     {
         public Line Result { get; private set; }
         private string[] _splittedLine;
-        private Dictionary<MessageType, string> regexConfDictionary; //contains regex instructions for every MessageType. Have to be loaded from config.json
+        //contains regex instructions for every MessageType. Have to be loaded from config.json
+        static private Dictionary<string, string> regexConfDictionary;
+        static private ConfigManager configManager;
+
+        static LineParser()
+        {
+            configManager = new ConfigManager(@"Config\config.json");
+            regexConfDictionary = configManager.GetConfigCategory("Regex");
+        }
 
         public LineParser(string unparsedLine)
         {
@@ -37,34 +44,33 @@ namespace LogParser
         //TODO: read regex strings from config.json
         private MessageType GetType(string message)
         {
-            if (Regex.IsMatch(message, @""))
+            if (Regex.IsMatch(message, regexConfDictionary[MessageType.Whisper.ToString()]))
                 return MessageType.Whisper;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Raid.ToString()]))
                 return MessageType.Raid;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Party.ToString()]))
                 return MessageType.Party;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Say.ToString()]))
                 return MessageType.Say;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Yell.ToString()]))
                 return MessageType.Yell;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Officer.ToString()]))
                 return MessageType.Officer;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Guild.ToString()]))
                 return MessageType.Guild;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Loot.ToString()]))
                 return MessageType.Loot;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Achievement.ToString()]))
                 return MessageType.Achievement;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.System.ToString()]))
                 return MessageType.System;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Instance.ToString()]))
                 return MessageType.Instance;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.CommandOutput.ToString()]))
                 return MessageType.CommandOutput;
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Roll.ToString()]))
                 return MessageType.Roll;
-            //Needs to be last
-            else if (Regex.IsMatch(message, @""))
+            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.GenericChat.ToString()]))
                 return MessageType.GenericChat;
             else return MessageType.NotDefined;
         }

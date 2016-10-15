@@ -1,5 +1,5 @@
 {
-  "regex": {
+  "Regex": {
     "Achievement": "has earned the achievement",
     "CommandOutput": "(^\\d+ - .*)|(^You give .* to .*\\.$)|(^>>)|(^Game Object \\(.*\\) removed$)|(^Appearing at .* location.$)|(^ {4}.*)|(^The command .* uses the following subcommands:$)|(Syntax: \\.)|(^[A-Z].* create(:|s) .*\\.)|(^No items found!$)",
     "CustomChat": "",
