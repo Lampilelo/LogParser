@@ -6,7 +6,13 @@ using System.IO;
 
 namespace LogParser
 {
-    internal class LineParser
+    public enum MessageType
+    {
+        Whisper, Raid, Party, Say, Yell, Officer, Guild, Loot, System, Achievement,
+        Instance, GeneralChat, CustomChat, GenericChat, CommandOutput, Roll, NotDefined
+    };
+
+    class LineParser
     {
         public Line Result { get; private set; }
         private string[] _splittedLine;
