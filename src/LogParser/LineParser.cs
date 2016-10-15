@@ -1,6 +1,7 @@
 ﻿using LogSplit.Config;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace LogParser
@@ -11,10 +12,8 @@ namespace LogParser
         Instance, GeneralChat, CustomChat, GenericChat, CommandOutput, Roll, NotDefined
     };
 
-    class LineParser
+    static class LineParser
     {
-        public Line Result { get; private set; }
-        private string[] _splittedLine;
         //contains regex instructions for every MessageType. Have to be loaded from config.json
         static private Dictionary<string, string> regexConfDictionary;
         static private ConfigManager configManager;
@@ -25,24 +24,21 @@ namespace LogParser
             regexConfDictionary = configManager.GetConfigCategory("Regex");
         }
 
-        public LineParser(string unparsedLine)
+        static public Line ParseLine(string unparsedLine)
         {
-            //regexConfDictionary = //JsonConvert.DeserializeObject<Dictionary<MessageType, string>>(File.ReadAllText("./Resources/configure.json"));
-
-            Result = new Line();
+            var result = new Line();
+            string[] _splittedLine;
             try
             {
                 _splittedLine = unparsedLine.Split(new string[] { "  " }, 2, StringSplitOptions.None);
-                Result.SetTimeFromString(_splittedLine[0]);
-                Result.Type = GetType(_splittedLine[1]);
-                //TEMPORARY
-                Result.Text = _splittedLine[1];
+                //FIXME: I need to use GetMessage(string message, MessageType type) method!
+                return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
             }
-            catch (Exception e) { Result.AdditionalInfo = e.Message; }
+            catch (Exception e) { result.AdditionalInfo = e.Message; }
+            return result;
         }
 
-        //TODO: read regex strings from config.json
-        private MessageType GetType(string message)
+        static private MessageType GetType(string message)
         {
             if (Regex.IsMatch(message, regexConfDictionary[MessageType.Whisper.ToString()]))
                 return MessageType.Whisper;
@@ -75,8 +71,8 @@ namespace LogParser
             else return MessageType.NotDefined;
         }
 
-        //FOR NOW NOT USED
-        private string GetMessage(string message, MessageType type)
+        //Not used for now
+        static private string GetMessage(string message, MessageType type)
         {
             switch (type)
             {
@@ -115,6 +111,19 @@ namespace LogParser
             }
 
             return null;
+        }
+
+        static public DateTime GetTimeFromString(string timeString)
+        {
+            try
+            {
+                return DateTime.ParseExact(timeString, "M/d HH:mm:ss.fff", CultureInfo.InvariantCulture);
+            }
+            catch (FormatException e)
+            {
+                e.Data.Add("timeString", timeString);
+                throw e;
+            }
         }
     }
 }

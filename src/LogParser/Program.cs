@@ -43,9 +43,9 @@ namespace LogParser
                             while ((line = reader.ReadLine()) != null)
                             {
                                 if (line == "" || line == "\n") continue; //Sometimes there are empty lines in log.
-                                LineParser parser = new LineParser(line);
-                                string outputLine = $"Time: {parser.Result.Time.ToString()}, Type: {parser.Result.Type}, Text: {parser.Result.Text}";
-                                writers[parser.Result.Type].WriteLine(parser.Result.Text);
+                                Line parsedLine = LineParser.ParseLine(line);
+                                string outputLine = $"Time: {parsedLine.Time.ToString()}, Type: {parsedLine.Type}, Text: {parsedLine.Text}";
+                                writers[parsedLine.Type].WriteLine(parsedLine.Text);
                                 Console.WriteLine(outputLine);
                             }
                         }
