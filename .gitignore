@@ -246,3 +246,4 @@ ModelManifest.xml
 WoWChatLog.txt
 /TODO.txt
 /src/LogParser/Properties/launchSettings.json
+/src/LogParser/Resources/WoWLogs.txt

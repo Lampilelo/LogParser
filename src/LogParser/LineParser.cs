@@ -29,9 +29,21 @@ namespace LogParser
             string[] _splittedLine;
             try
             {
+                //FIXME: What if line empty or not starting with date?
                 _splittedLine = unparsedLine.Split(new string[] { "  " }, 2, StringSplitOptions.None);
                 //FIXME: I need to use GetMessage(string message, MessageType type) method!
-                return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
+                try
+                {
+                    return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
+                }
+                catch(Exception e)
+                {
+                    //TEMPORARY
+                    //TODO: Legit exception handling.
+                    if (e.GetType() == typeof(System.FormatException)) Console.WriteLine("Exception line: " + unparsedLine);
+                    else Console.WriteLine("Something else? : " + unparsedLine);
+                    return null;
+                }
             }
             catch (Exception e) { throw e; }
         }

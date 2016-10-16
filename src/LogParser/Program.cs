@@ -44,9 +44,10 @@ namespace LogParser
                             {
                                 if (line == "" || line == "\n") continue; //Sometimes there are empty lines in log.
                                 Line parsedLine = LineParser.ParseLine(line);
+                                if (parsedLine == null) continue;
                                 string outputLine = $"Time: {parsedLine.Time.ToString()}, Type: {parsedLine.Type}, Text: {parsedLine.Text}";
                                 writers[parsedLine.Type].WriteLine(parsedLine.Text);
-                                Console.WriteLine(outputLine);
+                                //Console.WriteLine(outputLine);
                             }
                         }
                     }
