@@ -12,11 +12,11 @@ namespace LogParser
         Instance, GeneralChat, CustomChat, GenericChat, CommandOutput, Roll, NotDefined
     };
 
-    static class LineParser
+    public static class LineParser
     {
         //contains regex instructions for every MessageType. Have to be loaded from config.json
-        static private Dictionary<string, string> regexConfDictionary;
-        static private ConfigManager configManager;
+        private static Dictionary<string, string> regexConfDictionary;
+        private static ConfigManager configManager;
 
         static LineParser()
         {
@@ -24,7 +24,7 @@ namespace LogParser
             regexConfDictionary = configManager.GetConfigCategory("Regex");
         }
 
-        static public Line ParseLine(string unparsedLine)
+        public static Line ParseLine(string unparsedLine)
         {
             string[] _splittedLine;
             try
@@ -48,41 +48,56 @@ namespace LogParser
             catch (Exception e) { throw e; }
         }
 
-        static private MessageType GetType(string message)
+        public static MessageType GetType(string message)
         {
-            if (Regex.IsMatch(message, regexConfDictionary[MessageType.Whisper.ToString()]))
-                return MessageType.Whisper;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Raid.ToString()]))
-                return MessageType.Raid;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Party.ToString()]))
-                return MessageType.Party;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Say.ToString()]))
-                return MessageType.Say;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Yell.ToString()]))
-                return MessageType.Yell;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Officer.ToString()]))
-                return MessageType.Officer;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Guild.ToString()]))
-                return MessageType.Guild;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Loot.ToString()]))
-                return MessageType.Loot;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Achievement.ToString()]))
-                return MessageType.Achievement;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.System.ToString()]))
-                return MessageType.System;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Instance.ToString()]))
-                return MessageType.Instance;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.CommandOutput.ToString()]))
-                return MessageType.CommandOutput;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Roll.ToString()]))
-                return MessageType.Roll;
-            else if (Regex.IsMatch(message, regexConfDictionary[MessageType.GenericChat.ToString()]))
-                return MessageType.GenericChat;
-            else return MessageType.NotDefined;
+            // Get names of enum values
+            string[] messageTypes = Enum.GetNames(typeof(MessageType));
+
+            // This should do the same thing as commented ifs underneath
+            // Order of defined MessageType values is the order in which this foreach resolves
+            foreach (string messageType in messageTypes)
+            {
+                // Cast name of enum value to real enum value
+                var typeEnum = (MessageType)Enum.Parse(typeof(MessageType), messageType, true);
+                if (Regex.IsMatch(message, regexConfDictionary[messageType]))
+                    return typeEnum;
+            }
+            // If not returned value yet, return NotDefined message type. (This is else statement)
+            return MessageType.NotDefined;
+
+            //if (Regex.IsMatch(message, regexConfDictionary[MessageType.Whisper.ToString()]))
+            //    return MessageType.Whisper;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Raid.ToString()]))
+            //    return MessageType.Raid;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Party.ToString()]))
+            //    return MessageType.Party;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Say.ToString()]))
+            //    return MessageType.Say;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Yell.ToString()]))
+            //    return MessageType.Yell;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Officer.ToString()]))
+            //    return MessageType.Officer;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Guild.ToString()]))
+            //    return MessageType.Guild;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Loot.ToString()]))
+            //    return MessageType.Loot;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Achievement.ToString()]))
+            //    return MessageType.Achievement;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.System.ToString()]))
+            //    return MessageType.System;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Instance.ToString()]))
+            //    return MessageType.Instance;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.CommandOutput.ToString()]))
+            //    return MessageType.CommandOutput;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Roll.ToString()]))
+            //    return MessageType.Roll;
+            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.GenericChat.ToString()]))
+            //    return MessageType.GenericChat;
+            //else return MessageType.NotDefined;
         }
 
-        //Not used for now
-        static private string GetMessage(string message, MessageType type)
+        //Not used for now, probably deprecated/abandoned
+        private static string GetMessage(string message, MessageType type)
         {
             switch (type)
             {
@@ -123,16 +138,17 @@ namespace LogParser
             return null;
         }
 
-        static public DateTime GetTimeFromString(string timeString)
+        public static DateTime GetTimeFromString(string timeString)
         {
             try
             {
                 return DateTime.ParseExact(timeString, "M/d HH:mm:ss.fff", CultureInfo.InvariantCulture);
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                e.Data.Add("timeString", timeString);
-                throw e;
+                if (e.GetType() == typeof(FormatException)) e.Data.Add("timeString", timeString);
+                //TODO: Log it!
+                return new DateTime();
             }
         }
     }
