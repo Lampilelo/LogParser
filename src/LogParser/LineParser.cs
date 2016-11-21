@@ -32,14 +32,17 @@ namespace LogParser
 
         public static Line ParseLine(string unparsedLine)
         {
+            if (String.IsNullOrWhiteSpace(unparsedLine) || unparsedLine == String.Empty) return null;
+
             string[] _splittedLine;
             try
             {
-                //FIXME: What if line empty or not starting with date?
+                //FIXME: What if line isn't starting with date?
                 _splittedLine = unparsedLine.Split(new string[] { "  " }, 2, StringSplitOptions.None);
                 //FIXME: I need to use GetMessage(string message, MessageType type) method!
                 try
                 {
+                    if (_splittedLine[1] == "") return null;
                     return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
                 }
                 catch(Exception e)
