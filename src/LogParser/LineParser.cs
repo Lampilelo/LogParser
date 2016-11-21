@@ -6,12 +6,18 @@ using System.Text.RegularExpressions;
 
 namespace LogParser
 {
+    // Sequence in which MessageType values are defined is the sequence in which
+    // LineParser will read regex instructions from config
     public enum MessageType
     {
         Whisper, Raid, Party, Say, Yell, Officer, Guild, Loot, System, Achievement,
         Instance, GeneralChat, CustomChat, GenericChat, CommandOutput, Roll, NotDefined
     };
 
+    /// <summary>
+    /// This class is responsible for converting raw input line into Line object
+    /// This class should split line into DateTime, line content String and getting MessageType
+    /// </summary>
     public static class LineParser
     {
         //contains regex instructions for every MessageType. Have to be loaded from config.json
@@ -53,7 +59,7 @@ namespace LogParser
             // Get names of enum values
             string[] messageTypes = Enum.GetNames(typeof(MessageType));
 
-            // This should do the same thing as commented ifs underneath
+            // This does the same thing as commented if-else underneath
             // Order of defined MessageType values is the order in which this foreach resolves
             foreach (string messageType in messageTypes)
             {
@@ -64,6 +70,8 @@ namespace LogParser
             }
             // If not returned value yet, return NotDefined message type. (This is else statement)
             return MessageType.NotDefined;
+
+            // Left for reference
 
             //if (Regex.IsMatch(message, regexConfDictionary[MessageType.Whisper.ToString()]))
             //    return MessageType.Whisper;
@@ -138,6 +146,12 @@ namespace LogParser
             return null;
         }
 
+        /// <summary>
+        /// This parses given String value to a DateTime.
+        /// Method hardcoded for date format of "M/d HH:mm:ss.fff".
+        /// </summary>
+        /// <param name="timeString">String value to convert to DateTime. Needs to be "M/d HH:mm:ss.fff".</param>
+        /// <returns>Valid DateTime parsed from timeString or empty DateTime if failed to parse.</returns>
         public static DateTime GetTimeFromString(string timeString)
         {
             try
