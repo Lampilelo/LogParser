@@ -54,7 +54,7 @@ namespace LogParser
             catch (Exception e) { throw e; }
         }
 
-        public static MessageType GetType(string message)
+        private static MessageType GetType(string message)
         {
             // Get names of enum values
             string[] messageTypes = Enum.GetNames(typeof(MessageType));
@@ -152,7 +152,7 @@ namespace LogParser
         /// </summary>
         /// <param name="timeString">String value to convert to DateTime. Needs to be "M/d HH:mm:ss.fff".</param>
         /// <returns>Valid DateTime parsed from timeString or empty DateTime if failed to parse.</returns>
-        public static DateTime GetTimeFromString(string timeString)
+        private static DateTime GetTimeFromString(string timeString)
         {
             try
             {
