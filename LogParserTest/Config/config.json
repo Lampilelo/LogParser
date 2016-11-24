@@ -9,7 +9,7 @@
     "Instance": "Hchannel:(?i:INSTANCE_CHAT)",
     "Loot": "(^Loot(ing)? .*\\.$)|(^You receive loot: .*\\.$)|(^Your share of the loot is)|(^Greed Roll)|(has selected (Greed|Need) for:)|(^You have selected (Greed|Need) for: )|(^You loot )",
     "NotDefined": "^$",
-    "Officer": "Hchannel:(?i:OFFICER)",
+    "Officer": "Hchannel:o\\|h\\[(?i:OFFICER)\\]",
     "Party": "(Hchannel:(?i:PARTY))|(^(Party).*)|(^Dungeon Difficulty set to)|(has invited you to join a group.$)|(joins the party.$)|(^You have invited .* to join your group.$)|(^Party converted to Raid$)|( is already in a group.$)",
     "Raid": "(Hchannel:(?i:RAID))|(^((\\[?)|(Legacy )?)Raid)|((joined|left) ((the)|(a)) raid group)",
     "Roll": ".* rolls \\d* \\(\\d*-\\d*\\)",

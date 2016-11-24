@@ -5,7 +5,7 @@ using System;
 public partial class LineParserTest
 {
     [TestMethod]
-    public void Test_GetMessageType_Whisper()
+    public void Test_GetType_Whisper()
     {
         Line line1 = LineParser.ParseLine("9/12 20:03:37.387  To SomeDrek-MeRealm: this is. some,/ messAGE*>12$");
         Line line2 = LineParser.ParseLine("9/12 20:03:37.387  To SomeDrek: this is. some,/ messAGE*>12$");
@@ -40,46 +40,60 @@ public partial class LineParserTest
         Assert.AreEqual(MessageType.Raid, line8.Type);
     }
 
-    [TestMethod]
-    public void Test_GetType_Party()
-    {
-        Assert.Fail();
-    }
+    //[TestMethod]
+    //public void Test_GetType_Party()
+    //{
+    //    Assert.Fail();
+    //}
 
     [TestMethod]
     public void Test_GetType_Say()
     {
-        Assert.Fail();
+        Line line1 = LineParser.ParseLine("12/20 13:58:36.250  Finky says: A jak wygladal?");
+
+        Assert.AreEqual(MessageType.Say, line1.Type);
     }
 
     [TestMethod]
     public void Test_GetType_Yell()
     {
-        Assert.Fail();
+        Line line1 = LineParser.ParseLine("12/20 14:28:55.593  Kaizoku yells: Ktos chce sie napic?!");
+
+        Assert.AreEqual(MessageType.Yell, line1.Type);
     }
 
     [TestMethod]
     public void Test_GetType_Officer()
     {
-        Assert.Fail();
+        Line line1 = LineParser.ParseLine("2/2 20:46:38.736  |Hchannel:o|h[Officer]|h Ceiren: tu ziom");
+        Line line2 = LineParser.ParseLine("2/2 20:46:38.736  |Hchannel:o|h[officer]|h Ceiren: tu ziom");
+        Line line3 = LineParser.ParseLine("2/2 20:46:38.736  |Hchannel:o|h[OFFICER]|h Ceiren: tu ziom");
+
+        Assert.AreEqual(MessageType.Officer, line1.Type);
+        Assert.AreEqual(MessageType.Officer, line2.Type);
+        Assert.AreEqual(MessageType.Officer, line3.Type);
     }
 
     [TestMethod]
     public void Test_GetType_Guild()
     {
-        Assert.Fail();
+        Line line1 = LineParser.ParseLine("6/18 19:03:08.609  |Hchannel:Guild|h[Guild]|h Saevron: najwyzej dojda w trakcie");
+
+        Assert.AreEqual(MessageType.Guild, line1.Type);
     }
 
-    [TestMethod]
-    public void Test_GetType_Loot()
-    {
-        Assert.Fail();
-    }
+    //[TestMethod]
+    //public void Test_GetType_Loot()
+    //{
+    //    Assert.Fail();
+    //}
 
     [TestMethod]
     public void Test_GetType_Achievement()
     {
-        Assert.Fail();
+        Line line1 = LineParser.ParseLine("9/11 18:38:10.984  Cennes has earned the achievement Explore The Barrens!");
+
+        Assert.AreEqual(MessageType.Achievement, line1.Type);
     }
 
     [TestMethod]
