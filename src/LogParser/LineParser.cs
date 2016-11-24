@@ -8,7 +8,7 @@ namespace LogParser
 {
     // Sequence in which MessageType values are defined is the sequence in which
     // LineParser will read regex instructions from config
-    
+    // TODO: Rearange types from most common to rarest
     public enum MessageType
     {
         Whisper, Raid, Party, Say, Yell, Officer, Guild, Loot, System, Achievement,
@@ -68,6 +68,7 @@ namespace LogParser
 
             // This does the same thing as commented if-else underneath
             // Order of defined MessageType values is the order in which this foreach resolves
+            // TODO: Maybe dynamically change order of types in messageTypes based on rarity of a type
             foreach (string messageType in messageTypes)
             {
                 // Cast name of enum value to real enum value
