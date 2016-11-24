@@ -8,10 +8,12 @@ namespace LogParser
 {
     // Sequence in which MessageType values are defined is the sequence in which
     // LineParser will read regex instructions from config
+    
     public enum MessageType
     {
         Whisper, Raid, Party, Say, Yell, Officer, Guild, Loot, System, Achievement,
-        Instance, GeneralChat, CustomChat, GenericChat, CommandOutput, Roll, NotDefined
+        Instance, GeneralChat, CustomChat, CommandOutput, Roll, NotDefined,
+        GenericChat // Needs to be after Raid, Party, Officer, Guild, Instance
     };
 
     /// <summary>
@@ -43,6 +45,8 @@ namespace LogParser
                 try
                 {
                     if (_splittedLine[1] == "") return null;
+                    //TODO: If type isn't NotDefined get CharacterName and save it to an array
+                    //TODO: If type is NotDefined check an character names array and if it starts with name, change type to Emote
                     return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
                 }
                 catch(Exception e)
