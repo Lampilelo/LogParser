@@ -5,6 +5,7 @@ using System;
 [TestClass]
 public partial class LineParserTest
 {
+    //TODO: Rework!
     [TestMethod]
     public void Test_GetTimeFromString_ReturnsDefault_OnNonCompatibleString()
     {
