@@ -40,11 +40,11 @@ public partial class LineParserTest
         Assert.AreEqual(MessageType.Raid, line8.Type);
     }
 
-    //[TestMethod]
-    //public void Test_GetType_Party()
-    //{
-    //    Assert.Fail();
-    //}
+    [TestMethod]
+    public void Test_GetType_Party()
+    {
+        Assert.Fail();
+    }
 
     [TestMethod]
     public void Test_GetType_Say()
@@ -82,11 +82,11 @@ public partial class LineParserTest
         Assert.AreEqual(MessageType.Guild, line1.Type);
     }
 
-    //[TestMethod]
-    //public void Test_GetType_Loot()
-    //{
-    //    Assert.Fail();
-    //}
+    [TestMethod]
+    public void Test_GetType_Loot()
+    {
+        Assert.Fail();
+    }
 
     [TestMethod]
     public void Test_GetType_Achievement()
