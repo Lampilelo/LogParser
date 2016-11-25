@@ -11,7 +11,7 @@ namespace LogParser
     // TODO: Rearange types from most common to rarest
     public enum MessageType
     {
-        Whisper, Raid, Party, Say, Yell, Officer, Guild, Loot, System, Achievement,
+        Whisper, Raid, Party, Say, Emote, Yell, Officer, Guild, Loot, System, Achievement,
         Instance, GeneralChat, CustomChat, CommandOutput, Roll, NotDefined, GenericChat
     };
 
@@ -68,7 +68,7 @@ namespace LogParser
             // This does the same thing as commented if-else underneath
             // Order of defined MessageType values is the order in which this foreach resolves
             // TODO: Maybe dynamically change order of types in messageTypes based on rarity of a type
-            foreach (string messageType in messageTypes)
+            foreach (string messageType in regexConfDictionary.Keys)
             {
                 // Cast name of enum value to real enum value
                 var typeEnum = (MessageType)Enum.Parse(typeof(MessageType), messageType, true);
