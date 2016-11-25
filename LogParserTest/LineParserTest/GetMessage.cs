@@ -44,7 +44,7 @@ public partial class LineParserTest
     [TestMethod]
     public void Test_GetType_Party()
     {
-        List<Line> lines = new List<Line>(12);
+        List<Line> lines = new List<Line>(11);
         lines.Add(LineParser.ParseLine("10/4 20:19:00.031  Kerrin joins the party."));
         lines.Add(LineParser.ParseLine("10/4 20:24:24.984  Kerrin leaves the party."));
         lines.Add(LineParser.ParseLine("10/4 20:24:27.953  Kerrin has invited you to join a group."));
@@ -146,7 +146,7 @@ public partial class LineParserTest
     [TestMethod]
     public void Test_GetType_Roll()
     {
-        List<Line> lines = new List<Line>(8);
+        List<Line> lines = new List<Line>(7);
         lines.Add(LineParser.ParseLine("2/6 13:36:12.114  Greed Roll - 25 for Keleseth's Blade of Evocation by Rogrim"));
         lines.Add(LineParser.ParseLine("2/6 14:03:44.930  Need Roll - 13 for Vrykul Shackles by Geril"));
         lines.Add(LineParser.ParseLine("2/6 14:03:44.930  Geril won: Vrykul Shackles"));
@@ -164,7 +164,20 @@ public partial class LineParserTest
     [TestMethod]
     public void Test_GetType_GenericChat()
     {
-        throw new NotImplementedException();
+        List<Line> lines = new List<Line>(8);
+        lines.Add(LineParser.ParseLine("9/23 19:44:41.433  [5. iron] Rahgar joined channel."));
+        lines.Add(LineParser.ParseLine("9/23 19:44:25.738  [7. xtensionxtooltip2] Gerric-RedemptorHominis: RPB1~CSCAN~32"));
+        lines.Add(LineParser.ParseLine("9/23 19:41:07.398  [5. iron] Muraadin-RedemptorHominis left channel."));
+        lines.Add(LineParser.ParseLine("9/23 14:45:31.767  [4. Noir] Finky-RedemptorHominis: w tym wdzianku wygladas"));
+        lines.Add(LineParser.ParseLine("10/8 11:32:45.095  [1. General] Vanu: Could someone doing the storm drake assault "));
+        lines.Add(LineParser.ParseLine("10/8 15:48:30.446  [2. Trade] Eowale: Alt-F4"));
+        lines.Add(LineParser.ParseLine("10/8 11:00:20.943  [3. LocalDefense] : "));
+        lines.Add(LineParser.ParseLine("10/8 11:02:31.444  [4. LookingForGroup] Nhilila-ArgentDawn: Shut up mercy"));
+
+        foreach (Line line in lines)
+        {
+            Assert.AreEqual(MessageType.GenericChat, line.Type);
+        }
     }
 
     [TestMethod]
@@ -185,10 +198,10 @@ public partial class LineParserTest
         throw new NotImplementedException();
     }
 
-    [TestMethod]
-    public void Test_GetType_CommandOutput()
-    {
-        throw new NotImplementedException();
-    }
+    //[TestMethod]
+    //public void Test_GetType_CommandOutput()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
 }

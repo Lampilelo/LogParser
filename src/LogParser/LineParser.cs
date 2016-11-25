@@ -12,8 +12,7 @@ namespace LogParser
     public enum MessageType
     {
         Whisper, Raid, Party, Say, Yell, Officer, Guild, Loot, System, Achievement,
-        Instance, GeneralChat, CustomChat, CommandOutput, Roll, NotDefined,
-        GenericChat // Needs to be after Raid, Party, Officer, Guild, Instance
+        Instance, GeneralChat, CustomChat, CommandOutput, Roll, NotDefined, GenericChat
     };
 
     /// <summary>

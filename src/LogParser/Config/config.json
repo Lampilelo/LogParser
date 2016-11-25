@@ -4,7 +4,7 @@
     "CommandOutput": "^$",
     "CustomChat": "^$",
     "GeneralChat": "^$",
-    "GenericChat": "(\\[.\\. .*?\\])|(\\|Hchannel:.*h)",
+    "GenericChat": "(^\\[\\d*\\. .*\\] )",
     "Guild": "Hchannel:(?i:GUILD)",
     "Instance": "(Hchannel:(?i:INSTANCE_CHAT))|(^[a-zA-Z\\-]* is not in your instance.$)|(^You are now saved to this instance$)|(^[a-zA-Z\\-]* has left the instance group.$)|(^[a-zA-Z\\-]* has joined the (instance group.)|(the battle)$)",
     "Loot": "(^Loot(ing)? .*\\.$)|(^You receive loot: .*\\.$)|(^Your share of the loot is)|(^You loot )|(^[a-zA-Z\\-]* receives loot: .*\\.)",
