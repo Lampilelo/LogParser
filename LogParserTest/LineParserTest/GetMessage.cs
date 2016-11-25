@@ -22,23 +22,21 @@ public partial class LineParserTest
     [TestMethod]
     public void Test_GetType_Raid()
     {
-        Line line1 = LineParser.ParseLine("9/20 18:02:17.640  |Hchannel:raid|h[Raid]|h Selane: Caerthir, Aeltharian, trzyma");
-        Line line2 = LineParser.ParseLine("9/20 18:02:17.640  |Hchannel:RAID|h[Raid]|h Selane: Caerthir, Aeltharian, trzyma");
-        Line line3 = LineParser.ParseLine("9/20 18:02:17.640  |Hchannel:Raid|h[Raid]|h Selane: Caerthir, Aeltharian, trzyma");
-        Line line4 = LineParser.ParseLine("10/16 16:52:29.743  Legacy Raid Difficulty set to 10 Player.");
-        Line line5 = LineParser.ParseLine("10/16 16:52:29.743  Raid Difficulty set to 10 Player.");
-        Line line6 = LineParser.ParseLine("10/11 18:32:26.171  Милэлса-Голдринн has left the raid group.");
-        Line line7 = LineParser.ParseLine("10/11 18:32:28.179  Syslei-DunModr has joined the raid group.");
-        Line line8 = LineParser.ParseLine("10/4 18:29:05.718  |Hchannel:raid|h[Raid Leader]|h Aeltharian: Pffm.");
+        List<Line> lines = new List<Line>(9);
+        lines.Add(LineParser.ParseLine("9/20 18:02:17.640  |Hchannel:raid|h[Raid]|h Selane: Caerthir, Aeltharian, trzyma"));
+        lines.Add(LineParser.ParseLine("9/20 18:02:17.640  |Hchannel:RAID|h[Raid]|h Selane: Caerthir, Aeltharian, trzyma"));
+        lines.Add(LineParser.ParseLine("9/20 18:02:17.640  |Hchannel:Raid|h[Raid]|h Selane: Caerthir, Aeltharian, trzyma"));
+        lines.Add(LineParser.ParseLine("10/16 16:52:29.743  Legacy Raid Difficulty set to 10 Player."));
+        lines.Add(LineParser.ParseLine("10/16 16:52:29.743  Raid Difficulty set to 10 Player."));
+        lines.Add(LineParser.ParseLine("10/11 18:32:26.171  Милэлса-Голдринн has left the raid group."));
+        lines.Add(LineParser.ParseLine("10/11 18:32:28.179  Syslei-DunModr has joined the raid group."));
+        lines.Add(LineParser.ParseLine("10/4 18:29:05.718  |Hchannel:raid|h[Raid Leader]|h Aeltharian: Pffm."));
+        lines.Add(LineParser.ParseLine("10/8 18:29:03.760  [Raid Warning] Lìandra-Outland: WAIT FOR THE DAMN 2 TOWE"));
 
-        Assert.AreEqual(MessageType.Raid, line1.Type);
-        Assert.AreEqual(MessageType.Raid, line2.Type);
-        Assert.AreEqual(MessageType.Raid, line3.Type);
-        Assert.AreEqual(MessageType.Raid, line4.Type);
-        Assert.AreEqual(MessageType.Raid, line5.Type);
-        Assert.AreEqual(MessageType.Raid, line6.Type);
-        Assert.AreEqual(MessageType.Raid, line7.Type);
-        Assert.AreEqual(MessageType.Raid, line8.Type);
+        foreach (Line line in lines)
+        {
+            Assert.AreEqual(MessageType.Raid, line.Type);
+        }
     }
 
     [TestMethod]
