@@ -1,20 +1,20 @@
 {
   "Regex": {
     "Achievement": "has earned the achievement",
-    "CommandOutput": "(^\\d+ - .*)|(^You give .* to .*\\.$)|(^>>)|(^Game Object \\(.*\\) removed$)|(^Appearing at .* location.$)|(^ {4}.*)|(^The command .* uses the following subcommands:$)|(Syntax: \\.)|(^[A-Z].* create(:|s) .*\\.)|(^No items found!$)",
+    "CommandOutput": "^$",
     "CustomChat": "^$",
     "GeneralChat": "^$",
     "GenericChat": "(\\[.\\. .*?\\])|(\\|Hchannel:.*h)",
     "Guild": "Hchannel:(?i:GUILD)",
-    "Instance": "Hchannel:(?i:INSTANCE_CHAT)",
-    "Loot": "(^Loot(ing)? .*\\.$)|(^You receive loot: .*\\.$)|(^Your share of the loot is)|(^Greed Roll)|(has selected (Greed|Need) for:)|(^You have selected (Greed|Need) for: )|(^You loot )",
+    "Instance": "(Hchannel:(?i:INSTANCE_CHAT))|(^[a-zA-Z\\-]* is not in your instance.$)|(^You are now saved to this instance$)|(^[a-zA-Z\\-]* has left the instance group.$)|(^[a-zA-Z\\-]* has joined the (instance group.)|(the battle)$)",
+    "Loot": "(^Loot(ing)? .*\\.$)|(^You receive loot: .*\\.$)|(^Your share of the loot is)|(^You loot )|(^[a-zA-Z\\-]* receives loot: .*\\.)",
     "NotDefined": "^$",
     "Officer": "Hchannel:o\\|h\\[(?i:OFFICER)\\]",
-    "Party": "(Hchannel:(?i:PARTY))|(^(Party).*)|(^Dungeon Difficulty set to)|(has invited you to join a group.$)|(joins the party.$)|(^You have invited .* to join your group.$)|(^Party converted to Raid$)|( is already in a group.$)",
+    "Party": "(Hchannel:(?i:PARTY))|(^(Party).*)|(^Dungeon Difficulty set to)|(has invited you to join a group.$)|((joins|leaves) the party.$)|(^You have invited .* to join your group.$)|(^Party converted to Raid$)|( is already in a group.$)|(^Your group has been disbanded.$)",
     "Raid": "(Hchannel:(?i:RAID))|(^((\\[?)|(Legacy )?)Raid)|((joined|left) ((the)|(a)) raid group)",
-    "Roll": ".* rolls \\d* \\(\\d*-\\d*\\)",
+    "Roll": ".* rolls \\d* \\(\\d*-\\d*\\)|(^(Greed|Need) Roll)|(^[a-zA-Z\\-]* has selected (Greed|Need) for:)|(^You have selected (Greed|Need) for: )|(^[a-zA-Z\\-]* won: )",
     "Say": "says:",
-    "System": "(^You have learned)|(^You have gained)|(^You are)|(^Your pet has learned)|(has come online.$)|(.*leveled you up to \\(.*\\))|(^Your skill in.*has increased)|(^You have added.*to your collection\\.)|(has been added to your Toy Box\\.$)|(has been added to your pet journal!$)|(.*is dismissed.)|(^You receive item: .*\\.$)|(^You died.$)|(^You have requested to trade with)|(has gone offline\\.$)",
+    "System": "(^You have learned)|(^You have gained)|(^Your pet has learned)|(has come online.$)|(.*leveled you up to \\(.*\\))|(^Your skill in.*has increased)|(^You have added.*to your collection\\.)|(has been added to your Toy Box\\.$)|(has been added to your pet journal!$)|(.*is dismissed.)|(^You receive item: .*\\.$)|(^You died.$)|(^You have requested to trade with)|(has gone offline\\.$)",
     "Whisper": "^(To .*:)|(.*whispers:)",
     "Yell": "yells:"
   }

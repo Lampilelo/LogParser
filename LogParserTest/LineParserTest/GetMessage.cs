@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogParser;
 using System;
+using System.Collections.Generic;
 
 public partial class LineParserTest
 {
@@ -43,7 +44,23 @@ public partial class LineParserTest
     [TestMethod]
     public void Test_GetType_Party()
     {
-        Assert.Fail();
+        List<Line> lines = new List<Line>(12);
+        lines.Add(LineParser.ParseLine("10/4 20:19:00.031  Kerrin joins the party."));
+        lines.Add(LineParser.ParseLine("10/4 20:24:24.984  Kerrin leaves the party."));
+        lines.Add(LineParser.ParseLine("10/4 20:24:27.953  Kerrin has invited you to join a group."));
+        lines.Add(LineParser.ParseLine("10/8 15:38:01.546  |Hchannel:Party|h[Party]|h Attan: No wiec planujemy "));
+        lines.Add(LineParser.ParseLine("5/23 14:29:33.779  Your group has been disbanded."));
+        lines.Add(LineParser.ParseLine("6/3 21:49:53.050  Dungeon Difficulty set to 5 Player (Heroic)."));
+        lines.Add(LineParser.ParseLine("6/3 21:50:30.500  Dungeon Difficulty set to 5 Player."));
+        lines.Add(LineParser.ParseLine("6/4 12:40:26.254  You have invited Thorvald to join your group."));
+        lines.Add(LineParser.ParseLine("10/8 18:18:49.072  Party converted to Raid"));
+        lines.Add(LineParser.ParseLine("6/13 15:38:00.500  Kaizoku is already in a group."));
+        lines.Add(LineParser.ParseLine("1/25 18:27:06.617  |Hchannel:party|h[Party Leader]|h : Najlepiej dzis wieczorem."));
+
+        foreach (Line line in lines)
+        {
+            Assert.AreEqual(MessageType.Party, line.Type);
+        }
     }
 
     [TestMethod]
@@ -85,7 +102,19 @@ public partial class LineParserTest
     [TestMethod]
     public void Test_GetType_Loot()
     {
-        Assert.Fail();
+        List<Line> lines = new List<Line>(6);
+        lines.Add(LineParser.ParseLine("1/31 21:08:14.459  Looting changed to Group Loot."));
+        lines.Add(LineParser.ParseLine("1/31 21:08:14.459  Loot threshold set to Uncommon."));
+        lines.Add(LineParser.ParseLine("2/1 15:33:45.526  You receive loot: Runed Saronite Plate."));
+        lines.Add(LineParser.ParseLine("2/6 14:04:16.810  Geril receives loot: Super Healing Potion."));
+        lines.Add(LineParser.ParseLine("2/4 16:56:06.037  Your share of the loot is 26 Silver, 80 Copper."));
+        lines.Add(LineParser.ParseLine("9/10 14:18:30.906  You loot 1 Silver, 32 Copper"));
+
+
+        foreach (Line line in lines)
+        {
+            Assert.AreEqual(MessageType.Loot, line.Type);
+        }
     }
 
     [TestMethod]
@@ -97,44 +126,69 @@ public partial class LineParserTest
     }
 
     [TestMethod]
-    public void Test_GetType_System()
-    {
-        Assert.Fail();
-    }
-
-    [TestMethod]
     public void Test_GetType_Instance()
     {
-        Assert.Fail();
-    }
+        List<Line> lines = new List<Line>(7);
+        lines.Add(LineParser.ParseLine("9/25 09:30:42.032  Kerrin is not in your instance."));
+        lines.Add(LineParser.ParseLine("10/2 12:44:50.609  You are now saved to this instance"));
+        lines.Add(LineParser.ParseLine("10/8 11:47:15.914  |Hchannel:INSTANCE_CHAT|h[Instance]|h Ùberdøb-Stormrage: dont do that påls"));
+        lines.Add(LineParser.ParseLine("10/8 11:48:13.987  |Hchannel:INSTANCE_CHAT|h[Instance Leader]|h Grothil-ArgentDawn: thanks!"));
+        lines.Add(LineParser.ParseLine("10/8 12:08:23.059  Hazbuk-Bloodhoof has left the instance group."));
+        lines.Add(LineParser.ParseLine("10/8 17:57:07.015  Unmindful-GrimBatol has joined the instance group."));
+        lines.Add(LineParser.ParseLine("10/8 18:20:07.349  Varagoth-Silvermoon has joined the battle"));
 
-    [TestMethod]
-    public void Test_GetType_CommandOutput()
-    {
-        Assert.Fail();
+        foreach (Line line in lines)
+        {
+            Assert.AreEqual(MessageType.Instance, line.Type);
+        }
     }
 
     [TestMethod]
     public void Test_GetType_Roll()
     {
-        Assert.Fail();
+        List<Line> lines = new List<Line>(8);
+        lines.Add(LineParser.ParseLine("2/6 13:36:12.114  Greed Roll - 25 for Keleseth's Blade of Evocation by Rogrim"));
+        lines.Add(LineParser.ParseLine("2/6 14:03:44.930  Need Roll - 13 for Vrykul Shackles by Geril"));
+        lines.Add(LineParser.ParseLine("2/6 14:03:44.930  Geril won: Vrykul Shackles"));
+        lines.Add(LineParser.ParseLine("2/6 14:03:43.570  Mirkle has selected Need for: Vrykul Shackles"));
+        lines.Add(LineParser.ParseLine("2/6 14:03:41.452  Sylom has selected Greed for: Vrykul Shackles"));
+        lines.Add(LineParser.ParseLine("2/6 14:03:43.952  You have selected Greed for: Vrykul Shackles"));
+        lines.Add(LineParser.ParseLine("2/18 20:48:58.499  You have selected Need for: Ominous Dagger of the Elder"));
+
+        foreach (Line line in lines)
+        {
+            Assert.AreEqual(MessageType.Roll, line.Type);
+        }
     }
 
     [TestMethod]
     public void Test_GetType_GenericChat()
     {
-        Assert.Fail();
+        throw new NotImplementedException();
     }
 
     [TestMethod]
     public void Test_GetType_GeneralChat()
     {
-        Assert.Fail();
+        throw new NotImplementedException();
     }
 
     [TestMethod]
     public void Test_GetType_CustomChat()
     {
-        Assert.Fail();
+        throw new NotImplementedException();
     }
+
+    [TestMethod]
+    public void Test_GetType_System()
+    {
+        throw new NotImplementedException();
+    }
+
+    [TestMethod]
+    public void Test_GetType_CommandOutput()
+    {
+        throw new NotImplementedException();
+    }
+
 }
