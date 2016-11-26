@@ -84,38 +84,6 @@ namespace LogParser
             }
             // If not returned value yet, return NotDefined message type. (This is else statement)
             return MessageType.NotDefined;
-
-            // Left for reference
-
-            //if (Regex.IsMatch(message, regexConfDictionary[MessageType.Whisper.ToString()]))
-            //    return MessageType.Whisper;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Raid.ToString()]))
-            //    return MessageType.Raid;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Party.ToString()]))
-            //    return MessageType.Party;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Say.ToString()]))
-            //    return MessageType.Say;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Yell.ToString()]))
-            //    return MessageType.Yell;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Officer.ToString()]))
-            //    return MessageType.Officer;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Guild.ToString()]))
-            //    return MessageType.Guild;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Loot.ToString()]))
-            //    return MessageType.Loot;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Achievement.ToString()]))
-            //    return MessageType.Achievement;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.System.ToString()]))
-            //    return MessageType.System;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Instance.ToString()]))
-            //    return MessageType.Instance;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.CommandOutput.ToString()]))
-            //    return MessageType.CommandOutput;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.Roll.ToString()]))
-            //    return MessageType.Roll;
-            //else if (Regex.IsMatch(message, regexConfDictionary[MessageType.GenericChat.ToString()]))
-            //    return MessageType.GenericChat;
-            //else return MessageType.NotDefined;
         }
 
         //Not used for now, probably deprecated/abandoned
