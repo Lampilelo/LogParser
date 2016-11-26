@@ -17,13 +17,18 @@ namespace LogParser
 
     /// <summary>
     /// This class is responsible for converting raw input line into Line object
-    /// This class should split line into DateTime, line content String and getting MessageType
     /// </summary>
     public static class LineParser
     {
         //contains regex instructions for every MessageType. Have to be loaded from config.json
         private static Dictionary<string, string> regexConfDictionary;
         private static ConfigManager configManager;
+
+        //FIXME: Refactor when you change class to non-static
+        //TODO: Use this!
+        //TODO: Maybe dynamically rearrange set based on rarity of names for faster iteration
+        // Stores names acquired while parsing messages for MessageType.Emote identification
+        private static HashSet<string> nameSet;
 
         static LineParser()
         {
@@ -44,9 +49,11 @@ namespace LogParser
                 try
                 {
                     if (_splittedLine[1] == "") return null;
+                    MessageType type;
+                    type = GetType(_splittedLine[1]);
                     //TODO: If type isn't NotDefined get CharacterName and save it to an array
                     //TODO: If type is NotDefined check an character names array and if it starts with name, change type to Emote
-                    return new Line(GetTimeFromString(_splittedLine[0]), GetType(_splittedLine[1]), _splittedLine[1]);
+                    return new Line(GetTimeFromString(_splittedLine[0]), type, _splittedLine[1]);
                 }
                 catch(Exception e)
                 {
