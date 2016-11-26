@@ -17,5 +17,10 @@
     "System": "(^You have learned)|(^You have gained)|(^Your pet has learned)|(has come online.$)|(.*leveled you up to \\(.*\\))|(^Your skill in.*has increased)|(^You have added.*to your collection\\.)|(has been added to your Toy Box\\.$)|(has been added to your pet journal!$)|(.*is dismissed.)|(^You receive item: .*\\.$)|(^You died.$)|(^You have requested to trade with)|(has gone offline\\.$)",
     "Whisper": "^(To .*:)|(.*whispers:)",
     "Yell": "yells:"
+  },
+  "Regex_name": {
+    "Whisper": "((?<=To )([^- ]*)(?=.*:))|(^[^- ]*(?=.* whispers: ))",
+    "Raid": "((?<=\\]\\|h )[^- ]*(?=.*:))|(^[^- ]*(?=.*has ))|((?<=Warning\\] )[^- ]*(?=.*: ))",
+    "Party": "(^[^- ]*(?=.*joins ))|(^[^- ]*(?=.*leaves ))|(^[^- ]*(?=.*has invited))|((?<=You have invited )[^- ]*(?=.*to))|((?<=\\]\\|h )[^- ]*(?=.*:))|(^[^- ]*(?=.*is already))"
   }
 }
