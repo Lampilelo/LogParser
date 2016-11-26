@@ -152,6 +152,7 @@ public partial class LineParserTest
         lines.Add(LineParser.ParseLine("2/6 14:03:41.452  Sylom has selected Greed for: Vrykul Shackles"));
         lines.Add(LineParser.ParseLine("2/6 14:03:43.952  You have selected Greed for: Vrykul Shackles"));
         lines.Add(LineParser.ParseLine("2/18 20:48:58.499  You have selected Need for: Ominous Dagger of the Elder"));
+        lines.Add(LineParser.ParseLine("9/20 18:59:11.296  Torhill rolls 39 (1-100)"));
 
         foreach (Line line in lines)
         {
