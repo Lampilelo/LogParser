@@ -23,6 +23,7 @@ namespace LogParser
         //contains regex instructions for every MessageType. Have to be loaded from config.json
         private static Dictionary<string, string> regexConfDictionary;
         private static Dictionary<string, string> regexNameConfDictionary;
+        private static string regexEmoteChecking;
         private static ConfigManager configManager;
 
         //FIXME: Refactor when you change class to non-static
@@ -36,6 +37,7 @@ namespace LogParser
             configManager = new ConfigManager(@"Config\config.json");
             regexConfDictionary = configManager.GetConfigCategory("Regex");
             regexNameConfDictionary = configManager.GetConfigCategory("Regex_name");
+            regexEmoteChecking = configManager.GetConfigCategory("Regex_emote")["NotFollowedBy"];
             nameSet = new HashSet<string>();
         }
 
@@ -166,6 +168,31 @@ namespace LogParser
         {
             string name = Regex.Match(message, regexNameConfDictionary[type.ToString()]).ToString();
             return (name != "" ? name : null);
+        }
+
+        /// <summary>
+        /// Checks if Line of type NotDefined is an Emote. If it is, it changes its Type
+        /// and Name accordingly. It needs to be used after ParseLine() on every line 
+        /// in collection for best effect.
+        /// </summary>
+        /// <param name="line">Line of type MessageType.NotDefined</param>
+        /// <returns>True if line is an Emote, false otherwise</returns>
+        public static bool ParseEmote(ref Line line)
+        {
+            if (line.Type != MessageType.NotDefined) return false;
+
+            foreach (string name in nameSet)
+            {
+                if (name == null) continue;
+                // Have to add the name to the end of config regex
+                if (Regex.IsMatch(line.Text, regexEmoteChecking + name))
+                {
+                    line.Type = MessageType.Emote;
+                    line.Name = name;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
