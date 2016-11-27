@@ -22,6 +22,7 @@ namespace LogParser
     {
         //contains regex instructions for every MessageType. Have to be loaded from config.json
         private static Dictionary<string, string> regexConfDictionary;
+        private static Dictionary<string, string> regexNameConfDictionary;
         private static ConfigManager configManager;
 
         //FIXME: Refactor when you change class to non-static
@@ -34,6 +35,7 @@ namespace LogParser
         {
             configManager = new ConfigManager(@"Config\config.json");
             regexConfDictionary = configManager.GetConfigCategory("Regex");
+            regexNameConfDictionary = configManager.GetConfigCategory("Regex_name");
         }
 
         public static Line ParseLine(string unparsedLine)
@@ -51,9 +53,13 @@ namespace LogParser
                     if (_splittedLine[1] == "") return null;
                     MessageType type;
                     type = GetType(_splittedLine[1]);
+                    string name;
+                    if (regexNameConfDictionary.ContainsKey(type.ToString()))
+                        name = GetName(_splittedLine[1], type);
+                    else name = null;
                     //TODO: If type isn't NotDefined get CharacterName and save it to an array
                     //TODO: If type is NotDefined check an character names array and if it starts with name, change type to Emote
-                    return new Line(GetTimeFromString(_splittedLine[0]), type, _splittedLine[1]);
+                    return new Line(GetTimeFromString(_splittedLine[0]), type, _splittedLine[1], name);
                 }
                 catch(Exception e)
                 {
@@ -146,6 +152,12 @@ namespace LogParser
                 //TODO: Log it!
                 return new DateTime();
             }
+        }
+
+        private static string GetName(string message, MessageType type)
+        {
+            string name = Regex.Match(message, regexNameConfDictionary[type.ToString()]).ToString();
+            return (name != "" ? name : null);
         }
     }
 }
