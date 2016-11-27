@@ -218,13 +218,13 @@ public partial class LineParserTest
         Line line8 = LineParser.ParseLine("10/8 11:02:31.444  [4. LookingForGroup] Nhilila-ArgentDawn: Shut up mercy");
 
         Assert.AreEqual(line1.Name, "Rahgar");
-        Assert.AreEqual(line1.Name, "Gerric");
-        Assert.AreEqual(line1.Name, "Muraadin");
-        Assert.AreEqual(line1.Name, "Finky");
-        Assert.AreEqual(line1.Name, "Vanu");
-        Assert.AreEqual(line1.Name, "Eowale");
-        Assert.AreEqual(line1.Name, null);
-        Assert.AreEqual(line1.Name, "Nhilila");
+        Assert.AreEqual(line2.Name, "Gerric");
+        Assert.AreEqual(line3.Name, "Muraadin");
+        Assert.AreEqual(line4.Name, "Finky");
+        Assert.AreEqual(line5.Name, "Vanu");
+        Assert.AreEqual(line6.Name, "Eowale");
+        Assert.AreEqual(line7.Name, null);
+        Assert.AreEqual(line8.Name, "Nhilila");
     }
 }
 
