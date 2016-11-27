@@ -31,5 +31,8 @@
     "Instance": "(^[^- ]*(?=.*has))|((?<=\\]\\|h )[^- ]*(?=.*:))|(^[^- ]*(?=.* is))",
     "Roll": "(^[^- ]*(?=.*has))|(^[^- ]*(?=.* won))|((?<=by )[^- ]*(?=-|$))|(^[^- ]*(?=.* rolls))",
     "GenericChat": "(?<=\\] )[^- ]*(?=.*:|.*joined|.*left)"
+  },
+  "Regex_emote": {
+    "NotFollowedBy": "^(?!.*has gone offline\\.$|.*has come online\\.$|.*added to friends\\.$|.*removed from friends list\\.$)"
   }
 }
