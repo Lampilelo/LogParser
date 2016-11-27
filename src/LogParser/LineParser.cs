@@ -25,9 +25,7 @@ namespace LogParser
         private static Dictionary<string, string> regexNameConfDictionary;
         private static string regexEmoteChecking;
         private static ConfigManager configManager;
-
-        //FIXME: Refactor when you change class to non-static
-        //TODO: Use this!
+        
         //TODO: Maybe dynamically rearrange set based on rarity of names for faster iteration
         // Stores names acquired while parsing messages for MessageType.Emote identification
         private static HashSet<string> nameSet;
@@ -48,8 +46,9 @@ namespace LogParser
             string[] _splittedLine;
             try
             {
-                //FIXME: What if line isn't starting with date?
                 _splittedLine = unparsedLine.Split(new string[] { "  " }, 2, StringSplitOptions.None);
+                //TODO: Implement after logging system
+                //if (_splittedLine.Length < 2) Logger.Log("Line has unexpected structure.", unparsedLine);
                 //FIXME: I need to use GetMessage(string message, MessageType type) method!
                 try
                 {
@@ -61,8 +60,6 @@ namespace LogParser
                         name = GetName(_splittedLine[1], type);
                     else name = null;
                     nameSet.Add(name);
-                    //TODO: If type isn't NotDefined get CharacterName and save it to an array
-                    //TODO: If type is NotDefined check an character names array and if it starts with name, change type to Emote
                     return new Line(GetTimeFromString(_splittedLine[0]), type, _splittedLine[1], name);
                 }
                 catch(Exception e)
