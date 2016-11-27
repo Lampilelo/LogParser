@@ -84,18 +84,23 @@ public partial class LineParserTest
     {
         Line line1 = LineParser.ParseLine("12/20 13:58:36.250  Finky says: A jak wygladal?");
         Line line2 = LineParser.ParseLine("12/20 13:58:36.250  Finky-Krzeslo says: A jak wygladal?");
+        Line line3 = LineParser.ParseLine("10/8 15:13:32.923  Moonclaw Druid says: Thanks, I thought I was going to die!");
 
         Assert.AreEqual(line1.Name, "Finky");
         Assert.AreEqual(line2.Name, "Finky");
+        Assert.AreEqual(line3.Name, "Moonclaw Druid");
     }
     [TestMethod]
     public void Test_GetName_Yell()
     {
         Line line1 = LineParser.ParseLine("12/20 14:28:55.593  Kaizoku yells: Ktos chce sie napic?!");
         Line line2 = LineParser.ParseLine("12/20 14:28:55.593  Kaizoku-Realm yells: Ktos chce sie napic?!");
+        Line line3 = LineParser.ParseLine("10/8 16:08:43.406  Gravax the Desecrator yells: Rend the flesh from their bones...");
+        
 
         Assert.AreEqual(line1.Name, "Kaizoku");
         Assert.AreEqual(line2.Name, "Kaizoku");
+        Assert.AreEqual(line3.Name, "Gravax the Desecrator");
     }
     [TestMethod]
     public void Test_GetName_Officer()
