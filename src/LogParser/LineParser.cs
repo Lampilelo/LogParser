@@ -36,6 +36,7 @@ namespace LogParser
             configManager = new ConfigManager(@"Config\config.json");
             regexConfDictionary = configManager.GetConfigCategory("Regex");
             regexNameConfDictionary = configManager.GetConfigCategory("Regex_name");
+            nameSet = new HashSet<string>();
         }
 
         public static Line ParseLine(string unparsedLine)
@@ -57,6 +58,7 @@ namespace LogParser
                     if (regexNameConfDictionary.ContainsKey(type.ToString()))
                         name = GetName(_splittedLine[1], type);
                     else name = null;
+                    nameSet.Add(name);
                     //TODO: If type isn't NotDefined get CharacterName and save it to an array
                     //TODO: If type is NotDefined check an character names array and if it starts with name, change type to Emote
                     return new Line(GetTimeFromString(_splittedLine[0]), type, _splittedLine[1], name);
