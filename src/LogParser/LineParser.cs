@@ -154,6 +154,12 @@ namespace LogParser
             }
         }
 
+        /// <summary>
+        /// Method for extracting Name from message part of an unparsed line
+        /// </summary>
+        /// <param name="message">Message part of an unparsed line</param>
+        /// <param name="type">Type of message</param>
+        /// <returns></returns>
         private static string GetName(string message, MessageType type)
         {
             string name = Regex.Match(message, regexNameConfDictionary[type.ToString()]).ToString();
