@@ -29,6 +29,7 @@ namespace LogParser
         //TODO: Maybe dynamically rearrange set based on rarity of names for faster iteration
         // Stores names acquired while parsing messages for MessageType.Emote identification
         private static HashSet<string> nameSet;
+        private static string namesAsString = "";
 
         static LineParser()
         {
@@ -73,6 +74,8 @@ namespace LogParser
             }
             catch (Exception e) { throw e; }
         }
+
+
 
         private static MessageType GetType(string message)
         {
@@ -170,26 +173,54 @@ namespace LogParser
         /// <summary>
         /// Checks if Line of type NotDefined is an Emote. If it is, it changes its Type
         /// and Name accordingly. It needs to be used after ParseLine() on every line 
-        /// in collection for best effect.
+        /// in collection for best effect. Warning: Before using that method make sure you
+        /// called PrepareEmoteParsing() method!
         /// </summary>
         /// <param name="line">Line of type MessageType.NotDefined</param>
-        /// <returns>True if line is an Emote, false otherwise</returns>
-        public static bool ParseEmote(ref Line line)
+        /// <returns>Parsed emote line if line is an Emote, input line otherwise</returns>
+        /// <exception cref="Exception">If name set is empty or didn't initialize emote parsing
+        /// by PrepareEmoteParsing()</exception>
+        //FIXME: Needs to return null if not parsed. Have to refactor tests and Program.cs for that.
+        public static Line ParseEmote(Line line)
         {
-            if (line.Type != MessageType.NotDefined) return false;
+            if (namesAsString == "")
+                throw new Exception("Can't find name set for emote parsing. Did you forget to run PrepareEmoteParsing()?");
+                if (line.Type != MessageType.NotDefined) return line;
+            Line ret = new Line(line);
 
-            foreach (string name in nameSet)
+            if (Regex.IsMatch(line.Text, regexEmoteChecking + namesAsString))
             {
-                if (name == null) continue;
-                // Have to add the name to the end of config regex
-                if (Regex.IsMatch(line.Text, regexEmoteChecking + name))
-                {
-                    line.Type = MessageType.Emote;
-                    line.Name = name;
-                    return true;
-                }
+                ret.Type = MessageType.Emote;
+                //TODO: Parse name?
+                ret.Name = Regex.Match(ret.Text, "^[^-: ]*").ToString();
+                return ret;
             }
-            return false;
+            return line;
+        }
+
+        /// <summary>
+        /// For testing purposes. Clears name set collected while parsing lines.
+        /// </summary>
+        public static void ClearNameSet()
+        {
+            nameSet.Clear();
+            namesAsString = "";
+        }
+
+        /// <summary>
+        /// Prepares LineParser for parsing NotDefined lines to check if
+        /// they're not Emote types
+        /// </summary>
+        public static void PrepareEmoteParsing()
+        {
+            nameSet.Remove("You");
+            nameSet.Remove(null);
+            namesAsString = "(";
+            foreach (string name in nameSet)
+                namesAsString += $"{name}|";
+            namesAsString = namesAsString.Remove(namesAsString.Length - 1);
+            namesAsString += ')';
+            Console.WriteLine(namesAsString);
         }
     }
 }
