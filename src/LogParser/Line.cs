@@ -28,5 +28,7 @@ namespace LogParser
             Text = null;
             Name = null;
         }
+
+        public Line(Line line) : this(line.Time, line.Type, line.Text, line.Name) { }
     }
 }
